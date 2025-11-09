@@ -128,7 +128,7 @@ def recon(
     pbar.close()
 
     # ----- Smooth the output 
-    sigma_vox = (fwhm_mm / 2.355) / vol_spacing[0]
+    sigma_vox = fwhm_mm / 2.355
     # --- Make a fully-buffered, standalone copy (break the pipeline)
     DupType = itk.ImageDuplicator[ImageType3D]
     dup = DupType.New()
@@ -138,9 +138,8 @@ def recon(
     Smooth = itk.SmoothingRecursiveGaussianImageFilter[ImageType3D, ImageType3D].New()
     Smooth.SetInput(recon_buf)
     Smooth.SetSigma(sigma_vox)           # sigma in *voxel* units
-    # Smooth.SetNormalizeAcrossScale(False)  # optional, default is fine
     Smooth.Update()
     recon_smoothed = Smooth.GetOutput()
     if save_name != '':
         itk.imwrite(recon_smoothed, str(save_name))
-    return recon
+    return recon_smoothed
