@@ -1,0 +1,3 @@
+This repository contains a customizable reconstruction pipeline designed for cone-beam micro-CT data acquired from MILabs or similar pre-clinical scanners. 
+It reconstructs 3D volumes from 2D flat-field corrected 16-bit TIFF projections using ITK and RTK, with optional filtering.
+This version lacks HU calibration. 
